@@ -1,0 +1,97 @@
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" style="padding-left: 250px;">RESTAURANT FREE SELECT</h4>
+        <button type="button" class="close" aria-label="Close" (click)="cancel()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body book-form">
+        <form role="form" [formGroup]="createForm">
+          <div class="row">
+          <div class="phone_email col-sm-6">
+            <label>Full Name : </label>
+            <div class="form-text">
+              <span class="fa fa-user" aria-hidden="true"></span>
+              <input formControlName="name" type="text" name="Name" placeholder="Name" class="form-control" [ngClass]="{ 'is-invalid': f.name.errors }">
+              <div *ngIf="f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required"><i class="fa fa-exclamation-triangle"></i><small class="pad"><i>Name is required</i></small></div>
+            </div>
+            </div>
+          </div>
+          <div class="phone_email phone_email1 col-sm-6">
+            <label>Email : </label>
+            <div class="form-text">
+              <span class="fa fa-envelope" aria-hidden="true"></span>
+              <input formControlName="email" type="text" name="email" placeholder="Email" class="form-control" [ngClass]="{ 'is-invalid': f.email.errors }">
+              <div *ngIf="f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.email"><i class="fa fa-exclamation-triangle"></i><small class="pad"><i>Email must be a valid email address</i></small></div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="phone_email col-sm-6">
+            <label>Phone Number : </label>
+            <div class="form-text">
+              <span class="fa fa-phone" aria-hidden="true"></span>
+              <input formControlName="phone_number" type="text" name="Phone number" placeholder="Phone number" class="form-control" [ngClass]="{ 'is-invalid': f.phone_number.errors }">
+              <div *ngIf="f.phone_number.errors" class="invalid-feedback">
+                <div *ngIf="f.phone_number.errors.required"><i class="fa fa-exclamation-triangle"></i><small class="pad"><i>Phone number is required</i></small></div>
+                <div *ngIf="!f.phone_number.errors.required && f.phone_number.errors"><i class="fa fa-exclamation-triangle"></i><small class="pad"><i>Phone number is invalid</i></small></div>
+            </div>
+            </div>
+          </div>
+          <div class="phone_email phone_email1 col-sm-6">
+            <label>Address : </label>
+            <div class="form-text">
+              <span class="fa fa-map-marker" aria-hidden="true"></span>
+              <input formControlName="address" type="text" name="address" placeholder="Your Address" class="form-control">
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <label>Date : </label>
+              <div class="book_date">
+                <span class="fa fa-calendar" aria-hidden="true"></span>
+                <input formControlName="date_booking" class="date" id="datepicker" type="text" name="date" placeholder="yyyy-mm-dd" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" class="form-control" [ngClass]="{ 'is-invalid': f.date_booking.errors }" (ngModelChange)="getTable()">
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label>Time : </label>
+              <div class="section_room">
+                <!-- <span class="fa fa-clock-o" aria-hidden="true"></span> -->
+                <select formControlName="time_booking" id="country" class="form-control" [ngClass]="{ 'invalid-custom': f.time_booking.errors }" (ngModelChange)="getTable()">
+                  <option [ngValue]="null" selected hidden>Select time</option>
+                  <option value="11.30.00 AM">Lunch</option>
+                  <option value="07.00.00 PM">Dinner</option>
+                  <option value="07.00.00 AM">Break Fast</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <label>No.of People : </label>
+              <div class="section_room">
+                <!-- <span class="fa fa-users" aria-hidden="true"></span> -->
+                <select [attr.disabled]="f.date_booking.errors || f.time_booking.errors ? true : null" formControlName="people_quantity" id="country1" class="form-control" [ngClass]="{ 'is-invalid': f.people_quantity.errors }">
+                  <option [ngValue]="null" selected hidden>Select people</option>
+                  <option disabled>- 1 People</option>
+                  <option *ngFor="let tableo of findPeopleQuantity(1)" [value]="tableo.id">Number {{tableo.position}}</option>
+                  <option disabled>- 2 People</option>
+                  <option *ngFor="let tableo of findPeopleQuantity(2)" [value]="tableo.id">Number {{tableo.position}}</option>
+                  <option disabled>- 4 People</option>
+                  <option *ngFor="let tableo of findPeopleQuantity(4)" [value]="tableo.id">Number {{tableo.position}}</option>
+                  <option disabled>- More than 4 People</option>
+                  <option *ngFor="let tableo of findPeopleQuantity(5)" [value]="tableo.id">Number {{tableo.position}} - {{tableo.peopleQuantity}} people</option>
+                </select>
+              <div *ngIf="f.date_booking.errors || f.time_booking.errors" class="invalid-feedback">
+                <div *ngIf="f.date_booking.errors || f.time_booking.errors"><i class="fa fa-exclamation-triangle"></i><small class="pad"><i>Date and Time are required</i></small></div>
+            </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <input type="submit" value="Book Now" (click)="submitFormForm()"/>
+        </form>
+      </div>
+    </div>

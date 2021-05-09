@@ -1,0 +1,220 @@
+
+<main class="dashboard">
+  <article class="restaurant-panel">
+    <nav class="nav-bar">
+      <i class="fa fa-list"></i>
+      <a href="#" class="title">RESTAURANT</a>
+      <div class="search-bar">
+        <div class="input-group">
+          <button class="btn">
+            <i class="fa fa-search"></i>
+          </button>
+          <input #search type="search" class="form-control" name="search" placeholder="Search" [(ngModel)]="key"/>
+        </div>
+      </div>
+    </nav>
+    <header class="welcome-banner" *ngIf="!key">
+      <ngb-carousel *ngIf="images">
+        <ng-template ngbSlide>
+          <div class="picsum-img-wrapper">
+            <img [src]="images[0]" alt="Random first slide">
+          </div>
+          <div class="carousel-caption">
+            <h3>Order now ...</h3>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="picsum-img-wrapper">
+            <img [src]="images[1]" alt="Random second slide">
+          </div>
+          <div class="carousel-caption">
+            <h3>Events ...</h3>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="picsum-img-wrapper">
+            <img [src]="images[2]"  alt="Random third slide">
+          </div>
+          <div class="carousel-caption">
+            <h3>Hot hot hot ...</h3>
+          </div>
+        </ng-template>
+        <ng-template ngbSlide>
+          <div class="picsum-img-wrapper">
+            <img [src]="images[3]" alt="Random fourth slide">
+          </div>
+          <div class="carousel-caption">
+            <h3>Now ...</h3>
+          </div>
+        </ng-template>
+      </ngb-carousel>
+    </header>
+    <section class="section" id="restaurants">
+      <div class="section-titles">
+        <div class="section-title">Restaurants&nbsp;🍔</div>
+        <button class="btn btn-danger btn-round date-select">
+          <svg t="1586139290823" class="clock" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="2356" width="18" height="18">
+            <path
+              d="M512 42.65984q95.66208 0 182.49728 37.1712t149.66784 100.00384 100.00384 149.66784 37.1712 182.49728-37.1712 182.49728-100.00384 149.66784-149.66784 100.00384-182.49728 37.1712-182.49728-37.1712-149.66784-100.00384-100.00384-149.66784-37.1712-182.49728 37.1712-182.49728 100.00384-149.66784 149.66784-100.00384 182.49728-37.1712zM512 128q-78.00832 0-149.17632 30.49472t-122.49088 81.83808-81.83808 122.49088-30.49472 149.17632 30.49472 149.17632 81.83808 122.49088 122.49088 81.83808 149.17632 30.49472 149.17632-30.49472 122.49088-81.83808 81.83808-122.49088 30.49472-149.17632-30.49472-149.17632-81.83808-122.49088-122.49088-81.83808-149.17632-30.49472zM512 213.34016q17.67424 0 30.16704 12.4928t12.4928 30.16704l0 238.32576 115.67104 115.32288q12.32896 12.32896 12.32896 30.33088t-12.32896 30.33088-30.33088 12.32896-30.33088-12.32896l-128-128q-12.32896-12.32896-12.32896-30.33088l0-256q0-17.67424 12.4928-30.16704t30.16704-12.4928z"
+              p-id="2357"></path>
+          </svg><span>Delivery: Now</span><svg t="1586139384370" class="chevron" viewBox="0 0 1024 1024" version="1.1"
+            xmlns="http://www.w3.org/2000/svg" p-id="1254" width="18" height="18">
+            <path
+              d="M316.16 366.08 512 561.92 707.84 366.08 768 426.666667 512 682.666667 256 426.666667 316.16 366.08Z"
+              p-id="1255"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="categories">
+        <ul class="category-list">
+          <li id="foodcategory" *ngFor="let foodcategory of foodCategorys; let i = index;" [ngClass]="foodcategory.isActivated?'category-list__item active':'category-list__item'" (click)="setActivated(i)">
+            <a href="#{{foodcategory.name.toLowerCase()}}" id="{{foodcategory.name.toLowerCase()}}">
+              <div class="category-icon">
+                <img alt src="{{foodcategory.food_category_img}}" style="height: 30px;width: 30px" />
+              </div>
+              <div class="category-name">{{foodcategory.name}}</div>
+            </a>
+          </li>
+        </ul>
+        <div class="category-more">
+          <button class="btn btn-secondary category-more-btn">
+            <svg t="1586141872496" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+              p-id="1458" width="18" height="18">
+              <path d="M689.621 512l-328.832-328.832-60.331 60.331 268.501 268.501-268.501 268.501 60.331 60.331z"
+                p-id="1459"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+    <section class="section" *ngIf="foods.length > 0 || foods != null">
+      <section id="fda_product_tile">
+        <div class="row fda_food_row">
+          <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12"  *ngFor="let food of foods; let i=index" [style.margin-top]="i>3?'100px':'0px'">
+            <div [ngClass]="i%2?'food_tile':'food_tile active'">
+              <img src="{{food.food_img}}" alt="" class="fda_product_img">
+              <span class="food_name">{{food.name}}</span>
+              <span class="food_detail">{{food.description}}</span>
+              <ul id="food_meta">
+                <li>
+                  Rating
+                  <span>{{food.rate}}</span>
+                </li>
+                <li>
+                  Price
+                  <span>{{food.price}} <small><ins>đ</ins></small></span>
+                </li>
+              </ul>
+              <button type="button" class="btn btn-sm btn-default">Order Now</button>
+            </div>
+          </div>
+          </div>
+          </section>
+          <div class="centered" style="margin-top: 70px;">
+            <div class="row">
+              <div class="col-md-10 offset-md-5">
+                <ngb-pagination class="pagination" [collectionSize]="totalItems" [(page)]="ngbPaginationPage"
+                                [pageSize]="itemsPerPage"
+                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                (pageChange)="loadPage(key,$event)"></ngb-pagination>
+                              </div>
+            </div>
+        </div>
+
+    </section>
+    <section *ngIf="foods.length == 0 || foods == null">
+      <div class="alert alert-warning" role="alert">
+        No Food is found!!!
+      </div>
+    </section>
+  </article>
+  <article class="order-panel">
+    <header class="user-info">
+      <button type="button" class="btn btn-outline-success" style="margin-right: 30px;" (click)="openBooking()">Book table</button>
+      <i class="fa fa-user user"></i>
+      <button class="btn btn-warning buy-count">3</button>
+    </header>
+    <section class="section" id="order">
+      <div class="section-title">My Order&nbsp;😎</div>
+      <div class="order-info">
+        <div class="address">
+          <div class="address-name">625 St Marks Ave</div>
+          <a href="#" class="address-edit">Edit</a>
+        </div>
+        <div class="delivery">
+          <div class="delivery-time">
+            <button class="btn time-btn">
+              <svg t="1586139290823" class="clock" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="2356" width="18" height="18">
+                <path
+                  d="M512 42.65984q95.66208 0 182.49728 37.1712t149.66784 100.00384 100.00384 149.66784 37.1712 182.49728-37.1712 182.49728-100.00384 149.66784-149.66784 100.00384-182.49728 37.1712-182.49728-37.1712-149.66784-100.00384-100.00384-149.66784-37.1712-182.49728 37.1712-182.49728 100.00384-149.66784 149.66784-100.00384 182.49728-37.1712zM512 128q-78.00832 0-149.17632 30.49472t-122.49088 81.83808-81.83808 122.49088-30.49472 149.17632 30.49472 149.17632 81.83808 122.49088 122.49088 81.83808 149.17632 30.49472 149.17632-30.49472 122.49088-81.83808 81.83808-122.49088 30.49472-149.17632-30.49472-149.17632-81.83808-122.49088-122.49088-81.83808-149.17632-30.49472zM512 213.34016q17.67424 0 30.16704 12.4928t12.4928 30.16704l0 238.32576 115.67104 115.32288q12.32896 12.32896 12.32896 30.33088t-12.32896 30.33088-30.33088 12.32896-30.33088-12.32896l-128-128q-12.32896-12.32896-12.32896-30.33088l0-256q0-17.67424 12.4928-30.16704t30.16704-12.4928z"
+                  p-id="2357"></path>
+              </svg>
+            </button>
+            <span class="time">35min</span>
+          </div>
+          <a href="#" class="delivery-choose-time">Choose time</a>
+        </div>
+      </div>
+      <ul class="food-list">
+        <li class="food-list__item">
+          <img class="food-image" src="https://i.loli.net/2020/04/06/7oZgORNCnGE5qhU.png" />
+          <div class="food-buy-amount">1 x</div>
+          <div class="food-name">Beach BBQBurger</div>
+          <div class="food-price">$14.99</div>
+        </li>
+        <li class="food-list__item">
+          <img class="food-image" src="https://i.loli.net/2020/04/06/EZJyVICMS6GYueL.png" />
+          <div class="food-buy-amount">1 x</div>
+          <div class="food-name">French Fries</div>
+          <div class="food-price">$9.99</div>
+        </li>
+        <li class="food-list__item">
+          <img class="food-image" src="https://i.loli.net/2020/04/06/pIWNyMlqCSZiLtr.png" />
+          <div class="food-buy-amount">1 x</div>
+          <div class="food-name">Cheese Sauce</div>
+          <div class="food-price">$0.99</div>
+        </li>
+        <li class="food-list__item">
+          <img class="food-image" src="https://i.loli.net/2020/04/06/BN2JIuHAC6Gh3eR.png" />
+          <div class="food-name">Delivery</div>
+          <div class="food-price">$0.00</div>
+        </li>
+      </ul>
+      <div class="total-price">
+        <div class="total">Total:</div>
+        <div class="price">$25.97</div>
+      </div>
+      <div class="buy-action">
+        <div class="person-number-input">
+          <div class="persons">Persons</div>
+          <div class="input-group input-spinner">
+            <button class="btn minus" onclick="document.querySelector('#count').value--">
+              <svg t="1585835162360" class="icon" viewBox="0 0 1025 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="3867" width="14" height="14" fill="currentColor">
+                <path
+                  d="M973.154 563.218 51.222 563.218c-28.275 0-51.222-22.946-51.222-51.214 0-28.276 22.946-51.222 51.222-51.222L973.154 460.782c28.33 0 51.222 22.946 51.222 51.222C1024.375 540.272 1001.484 563.218 973.154 563.218L973.154 563.218z"
+                  p-id="3868"></path>
+              </svg>
+            </button>
+            <input type="text" readonly value="0" class="form-control" id="count" />
+            <button class="btn plus" onclick="document.querySelector('#count').value++">
+              <svg t="1585835178245" class="icon" fill="currentColor" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="1204" width="14" height="14">
+                <path
+                  d="M970.745 459.367 566.614 459.367 566.614 55.251C566.614 25.842 542.771 2 513.361 2c-29.411 0-53.253 23.841-53.253 53.251l0 404.116L55.975 459.367c-29.411 0-53.253 23.841-53.253 53.25 0 29.41 23.842 53.253 53.253 53.253l404.133 0 0 404.115c0 29.407 23.842 53.249 53.253 53.249 29.41 0 53.253-23.842 53.253-53.249L566.614 565.87l404.131 0c29.413 0 53.255-23.843 53.255-53.253C1024 483.208 1000.158 459.367 970.745 459.367z"
+                  p-id="1205"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <button class="btn btn-warning checkout-btn">
+          Checkout<svg width="18" height="18" class="arrow" viewBox="0 0 24 24">
+            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+          </svg>
+        </button>
+      </div>
+    </section>
+  </article>
+</main>

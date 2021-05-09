@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "../node_modules/font-awesome/css/font-awesome.css";
+@import '~ngx-toastr/toastr.css';
+
+.pad {
+  padding-left: 5px;
+}
+
+#toast-container > div {
+  opacity:1;
+}
