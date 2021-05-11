@@ -1,0 +1,99 @@
+<!-- <div class="box-work-detail">
+  <div class="close -ap icon-close" (click)="cancel()"></div>
+  <div class="main-title">Danh sách user đã gán menu</div>
+  <div class="row" style="margin-top: 4%;margin-bottom: 3%"></div>
+  <div class="padt10 padb10 padl20 padr20">
+      <div class="row">
+          <div class="col-sm-11 col-sm-12">
+              <input #search type="text" placeholder="Nhập từ khóa tìm kiếm" class="form-control">
+                                 <span class="fa icon fa-search"></span>
+          </div>
+      </div>
+  </div>
+  <div class="alert alert-warning" id="no-result" *ngIf="customers?.length === 0">
+      <span>No roleMenus found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="customers && customers.length > 0">
+      <table class="table-result" aria-describedby="page-heading">
+          <thead>
+          <th class="w30 center">
+              <a data-toggle="modal" class="act">
+                  <span class="fa fa-cog"></span>
+              </a>
+          </th>
+          <th><span>MÃ USER</span></th>
+          <th><span>HỌ VÀ TÊN</span></th>
+          <th class="center"><span>TÊN ĐĂNG NHẬP</span></th>
+          <th class="center"><span>TRẠNG THÁI ẨN/HIỆN MENU</span></th>
+          </thead>
+          <tbody>
+          <tr *ngFor="let usermenu of customers">
+              <td></td>
+              <td>{{usermenu.userId}}</td>
+              <td></td>
+              <td class="center">{{usermenu.userUsername}}</td>
+              <td class="center">
+                      <input *ngIf="usermenu.activated" type="checkbox" checked class="check">
+                      <input *ngIf="!usermenu.activated" type="checkbox" class="check">
+              </td>
+          </tr>
+          </tbody>
+      </table>
+      <div class="pagination-bottom pad10">
+          <div class="row">
+              <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                              [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                              (pageChange)="loadPage($event)"></ngb-pagination>
+          </div>
+          <div class="clearfix"></div>
+      </div>
+  </div>
+</div> -->
+<div class="container centered">
+  <div class="modal-header">
+    <h1 class="modal-title" style="padding-left: 400px;padding-right: 300px;">LIST CUSTOMER</h1>
+    <button type="button" class="close" aria-label="Close" (click)="cancel()"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="col-sm-11 col-sm-12">
+    <input #search type="text" placeholder="Nhập từ khóa tìm kiếm" class="form-control">
+                       <!-- <span class="fa icon fa-search"></span> -->
+    </div>
+    <div class="alert alert-warning" id="no-result" *ngIf="customers?.length === 0">
+      <span>No customer found</span>
+  </div>
+  <div class="table-responsive" id="entities" *ngIf="customers && customers.length > 0">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Phone number</th>
+        <th>Table id</th>
+        <th>Login name</th>
+        <th>Email</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{customer.id}}</td>
+        <td>{{customer.name}}</td>
+        <td>{{customer.phone_number}}</td>
+        <td>{{customer.tableId}}</td>
+        <td>{{customer.login_name?customer.login_name:"anonymous"}}</td>
+        <td>{{customer.email?customer.email:"no email"}}</td>
+        <td>{{customer.address?customer.address:"no address"}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination-bottom pad10">
+    <div style="padding-left: 400px;">
+        <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage"
+                        [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                        (pageChange)="loadPage(key, $event)"></ngb-pagination>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+</div>

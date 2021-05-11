@@ -7,6 +7,10 @@
   padding-left: 5px;
 }
 
+.pad-icon {
+  padding-left: 25px;
+}
+
 #toast-container > div {
   opacity:1;
 }

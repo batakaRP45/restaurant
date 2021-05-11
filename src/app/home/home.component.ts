@@ -4,10 +4,12 @@ import { HomeService } from './home.service';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { fromEvent } from 'rxjs/internal/observable/fromEvent';
 import { map, debounceTime, pluck, distinctUntilChanged } from 'rxjs/operators';
-import { FEILD_DEFAULT, SORT_DEFAULT, ITEMSPERPAGE } from '../app.constants';
+import { FEILD_DEFAULT, SORT_DEFAULT, ITEMSPERPAGE, SORT_DESC } from '../app.constants';
 import { IFoodCategory } from './../shared/model/food-category.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BookTableComponent } from '../modal/book-table.component';
+import { CustomerComponent } from '../admin/customer/customer.component';
+import { BookingCalendarComponent } from '../admin/booking-calendar/booking-calendar.component';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +21,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   foodCategorys: IFoodCategory[] | null = null;
   feild: string = FEILD_DEFAULT;
   sort: string = SORT_DEFAULT;
+  isDefault: boolean = true;
+  isSort: boolean = true;
   ngbPaginationPage = 1;
   itemsPerPage: number = ITEMSPERPAGE;
   totalItems = 0;
@@ -138,6 +142,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   openBooking(): void {
     this.modalService.open(BookTableComponent, {size: 'lg', backdrop: 'static', windowClass: 'book-table.component'});
+  }
+
+  openCustomer(): void {
+    this.modalService.open(CustomerComponent, {size: 'xl', backdrop: 'static', windowClass: 'customer.component'});
+  }
+
+  openTableBooking(): void {
+    this.modalService.open(BookingCalendarComponent, {size: 'xl', backdrop: 'static', windowClass: 'booking-calendar.component'});
+  }
+
+  setFeild(feild: string): void {
+    this.isDefault = true;
+    this.feild = feild;
+    this.loadCategory();
+    this.loadPage(this.key, 1);
+  }
+
+  setSort(active: boolean): void {
+    this.isDefault = false;
+    this.isSort = active;
+    this.sort = this.isSort?SORT_DEFAULT:SORT_DESC;
+    this.loadCategory();
+    this.loadPage(this.key, 1);
   }
 }
 

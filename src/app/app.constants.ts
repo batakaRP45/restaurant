@@ -1,6 +1,7 @@
 export const BASE_URL = "http://localhost:8081/";
 export const FEILD_DEFAULT = "id";
 export const SORT_DEFAULT = "ASC";
+export const SORT_DESC = "DESC";
 export const ITEMSPERPAGE = 10;
 export const SUCCESSFUL = "Booking successful";
 export const ERROR = "Something wrong";

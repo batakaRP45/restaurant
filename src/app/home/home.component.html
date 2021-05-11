@@ -52,18 +52,13 @@
     <section class="section" id="restaurants">
       <div class="section-titles">
         <div class="section-title">Restaurants&nbsp;🍔</div>
-        <button class="btn btn-danger btn-round date-select">
-          <svg t="1586139290823" class="clock" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-            p-id="2356" width="18" height="18">
-            <path
-              d="M512 42.65984q95.66208 0 182.49728 37.1712t149.66784 100.00384 100.00384 149.66784 37.1712 182.49728-37.1712 182.49728-100.00384 149.66784-149.66784 100.00384-182.49728 37.1712-182.49728-37.1712-149.66784-100.00384-100.00384-149.66784-37.1712-182.49728 37.1712-182.49728 100.00384-149.66784 149.66784-100.00384 182.49728-37.1712zM512 128q-78.00832 0-149.17632 30.49472t-122.49088 81.83808-81.83808 122.49088-30.49472 149.17632 30.49472 149.17632 81.83808 122.49088 122.49088 81.83808 149.17632 30.49472 149.17632-30.49472 122.49088-81.83808 81.83808-122.49088 30.49472-149.17632-30.49472-149.17632-81.83808-122.49088-122.49088-81.83808-149.17632-30.49472zM512 213.34016q17.67424 0 30.16704 12.4928t12.4928 30.16704l0 238.32576 115.67104 115.32288q12.32896 12.32896 12.32896 30.33088t-12.32896 30.33088-30.33088 12.32896-30.33088-12.32896l-128-128q-12.32896-12.32896-12.32896-30.33088l0-256q0-17.67424 12.4928-30.16704t30.16704-12.4928z"
-              p-id="2357"></path>
-          </svg><span>Delivery: Now</span><svg t="1586139384370" class="chevron" viewBox="0 0 1024 1024" version="1.1"
-            xmlns="http://www.w3.org/2000/svg" p-id="1254" width="18" height="18">
-            <path
-              d="M316.16 366.08 512 561.92 707.84 366.08 768 426.666667 512 682.666667 256 426.666667 316.16 366.08Z"
-              p-id="1255"></path>
-          </svg>
+        <button class="btn btn-warning btn-round date-select" ngbDropdown>
+          <a type="button" ngbDropdownToggle id="dropdownBasic1"><strong><b>Sort by:</b></strong> {{feild.toUpperCase()}}</a><i [ngClass]="isDefault?('fa fa-sort pad-icon'):(isSort?'fa fa-sort-up pad-icon':'fa fa-sort-down pad-icon')" (click)="setSort(!isSort)"></i>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu">
+            <button class="dropdown-item" ngbDropdownItem (click)="setFeild('name')">Name</button>
+            <button class="dropdown-item" ngbDropdownItem (click)="setFeild('price')">Price</button>
+            <button class="dropdown-item" ngbDropdownItem (click)="setFeild('rate')">Rate</button>
+          </div>
         </button>
       </div>
       <div class="categories">
@@ -88,7 +83,7 @@
         </div>
       </div>
     </section>
-    <section class="section" *ngIf="foods.length > 0 || foods != null">
+    <section class="section" *ngIf="foods && foods.length > 0">
       <section id="fda_product_tile">
         <div class="row fda_food_row">
           <div class="col-xl-3 col-lg-4 col-md-4 col-sm-12"  *ngFor="let food of foods; let i=index" [style.margin-top]="i>3?'100px':'0px'">
@@ -123,7 +118,7 @@
         </div>
 
     </section>
-    <section *ngIf="foods.length == 0 || foods == null">
+    <section *ngIf="foods?.length === 0">
       <div class="alert alert-warning" role="alert">
         No Food is found!!!
       </div>
@@ -136,7 +131,7 @@
       <button class="btn btn-warning buy-count">3</button>
     </header>
     <section class="section" id="order">
-      <div class="section-title">My Order&nbsp;😎</div>
+      <div class="section-title" (click)="openTableBooking()">My Order&nbsp;😎</div>
       <div class="order-info">
         <div class="address">
           <div class="address-name">625 St Marks Ave</div>
@@ -209,7 +204,7 @@
             </button>
           </div>
         </div>
-        <button class="btn btn-warning checkout-btn">
+        <button class="btn btn-warning checkout-btn" (click)="openCustomer()">
           Checkout<svg width="18" height="18" class="arrow" viewBox="0 0 24 24">
             <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
           </svg>

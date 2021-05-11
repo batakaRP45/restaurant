@@ -14,4 +14,8 @@ export class TableService {
   createTable(table: ITable): Observable<ITable>{
     return this.http.post<ITable>(BASE_URL+"api/post-table", table);
   }
+
+  getTableForCalendar(status: boolean): Observable<ITable[]>{
+    return this.http.get<ITable[]>(BASE_URL+"api/get-all-table-for-calendar/"+status);
+  }
 }
